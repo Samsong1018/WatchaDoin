@@ -4,36 +4,223 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Whatcha Doing? — manage your projects, tabs, tasks, and subtasks.">
-  <meta name="keywords" content="projects, task list, subtasks, organization, Whatcha Doing">
+  <meta name="description" content="Whatcha Doing? projects — organize your tasks into color-coded project groups.">
+  <meta name="keywords" content="projects, organize tasks, productivity, Whatcha Doing">
   <meta name="author" content="Meron Woldekiros | DEV109 Team 2">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:title" content="Projects | Whatcha Doing?">
+  <meta property="og:description" content="Organize your tasks into color-coded project groups.">
+  <meta property="og:type" content="website">
   <title>Projects | Whatcha Doing?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .project-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .project-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .project-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .project-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+    }
+    .task-count { font-size: 0.8rem; color: var(--color-text-muted); }
+    .project-tasks { margin-top: 1rem; }
+    .mini-task {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.875rem;
+    }
+    .mini-task:last-child { border-bottom: none; }
+    .mini-check {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--color-border);
+      border-radius: 3px;
+      flex-shrink: 0;
+      accent-color: var(--color-accent);
+    }
+    .new-project-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 1.5rem;
+      border: 2px dashed var(--color-border);
+      border-radius: 14px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      width: 100%;
+      font-family: var(--font-body);
+      transition: all 0.15s ease;
+    }
+    .new-project-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .new-project-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="../index.html" class="logo">Whatcha Doing?</a>
-      <ul>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-logo">Whatcha Doing?</a>
+      <ul class="nav-links">
         <li><a href="../index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
         <li><a href="calendar.html">Calendar</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section>
-      <h1>Projects</h1>
-      <p>Create and manage project tabs with color coding, priority tasks, and collapsible subtasks.</p>
-      <p><em>(Prototype placeholder — project list will display here)</em></p>
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Organized by project</p>
+            <h1>My Projects</h1>
+          </div>
+          <a href="dashboard.html" class="btn btn-primary">+ New Task</a>
+        </div>
+
+        <div class="project-list">
+
+          <!-- School project -->
+          <div class="project-item">
+            <div class="project-item-header">
+              <h2 class="project-name">
+                <span class="project-dot" style="background: var(--proj-blue);" aria-hidden="true"></span>
+                School
+              </h2>
+              <span class="task-count">4 tasks &mdash; 0 completed</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="School project: 0% complete"></div>
+            </div>
+            <p class="progress-label">
+              <span>0 of 4 tasks done</span>
+              <span>Due Jun 24</span>
+            </p>
+            <div class="project-tasks">
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" aria-label="Finish prototype Phase 2">
+                <span>Finish prototype for DEV109 &mdash; Phase 2</span>
+                <span class="priority priority-high" style="margin-left: auto;">High</span>
+              </div>
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" aria-label="Submit reflection statement">
+                <span>Submit reflection statement</span>
+                <span class="priority priority-high" style="margin-left: auto;">High</span>
+              </div>
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" aria-label="Read chapters 8 through 10">
+                <span>Read chapters 8&ndash;10 for Tuesday</span>
+                <span class="priority priority-medium" style="margin-left: auto;">Medium</span>
+              </div>
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" aria-label="Final project draft">
+                <span>Final project draft</span>
+                <span class="priority priority-medium" style="margin-left: auto;">Medium</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collaboration project -->
+          <div class="project-item">
+            <div class="project-item-header">
+              <h2 class="project-name">
+                <span class="project-dot" style="background: var(--proj-green);" aria-hidden="true"></span>
+                Collaboration
+              </h2>
+              <span class="task-count">2 tasks &mdash; 1 completed</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 50%; background: var(--proj-green);" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Collaboration: 50% complete"></div>
+            </div>
+            <p class="progress-label">
+              <span>1 of 2 tasks done</span>
+              <span>Ongoing</span>
+            </p>
+            <div class="project-tasks">
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" checked aria-label="Set up Microsoft Teams completed">
+                <span style="text-decoration: line-through; color: var(--color-text-muted);">Set up Microsoft Teams collab site</span>
+                <span class="priority priority-low" style="margin-left: auto;">Low</span>
+              </div>
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" aria-label="Review design feedback">
+                <span>Review design feedback from DMA205 team</span>
+                <span class="priority priority-high" style="margin-left: auto;">High</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal project -->
+          <div class="project-item">
+            <div class="project-item-header">
+              <h2 class="project-name">
+                <span class="project-dot" style="background: var(--proj-orange);" aria-hidden="true"></span>
+                Personal
+              </h2>
+              <span class="task-count">1 task &mdash; 0 completed</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%; background: var(--proj-orange);" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Personal: 0% complete"></div>
+            </div>
+            <p class="progress-label">
+              <span>0 of 1 tasks done</span>
+              <span>No due date</span>
+            </p>
+            <div class="project-tasks">
+              <div class="mini-task">
+                <input type="checkbox" class="mini-check" aria-label="Organize digital notes">
+                <span>Organize digital notes and reference files</span>
+                <span class="priority priority-low" style="margin-left: auto;">Low</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- New project button -->
+          <button type="button" class="new-project-btn" aria-label="Create a new project">
+            + New Project
+          </button>
+
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2026 Whatcha Doing? | DMA205 &amp; DEV109 Collaboration | Bellevue College</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Whatcha Doing?</span>
+      <p class="footer-note">&copy; 2026 Whatcha Doing? &mdash; DMA205 &amp; DEV109 Collaboration &mdash; Bellevue College</p>
+    </div>
   </footer>
 </body>
 </html>
