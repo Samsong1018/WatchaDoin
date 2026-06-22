@@ -12,14 +12,213 @@
   <meta property="og:description" content="Stay on top of school, work, and personal projects with a fully customizable task manager.">
   <meta property="og:type" content="website">
   <title>Whatcha Doing?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Home page specific */
+    .hero {
+      padding: var(--space-xl) var(--space-md);
+      background: linear-gradient(145deg, hsl(220 18% 97%) 0%, hsl(228 60% 97%) 100%);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hero-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      margin-bottom: var(--space-sm);
+      line-height: 1.1;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .hero-subtitle {
+      color: var(--color-text-muted);
+      font-size: 1.05rem;
+      margin-bottom: var(--space-lg);
+      max-width: 440px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .btn-hero { padding: 0.8rem 1.75rem; font-size: 0.95rem; }
+
+    /* Mock dashboard preview */
+    .dashboard-preview {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .preview-header h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .preview-date {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .preview-task {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .preview-task:last-child { border-bottom: none; }
+
+    .preview-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .preview-check.done {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.6rem;
+    }
+
+    .preview-task-text {
+      flex: 1;
+      font-size: 0.85rem;
+    }
+
+    .preview-task-text.done-text {
+      text-decoration: line-through;
+      color: var(--color-text-muted);
+    }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .feature-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      transition: box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--color-accent-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .cta-strip {
+      background: var(--color-accent);
+      padding: var(--space-xl) var(--space-md);
+      text-align: center;
+    }
+
+    .cta-strip h2 {
+      color: hsl(0 0% 100%);
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-strip p {
+      color: hsl(228 60% 88%);
+      margin-bottom: var(--space-md);
+    }
+
+    .btn-cta {
+      background: hsl(0 0% 100%);
+      color: var(--color-accent);
+      padding: 0.85rem 2rem;
+    }
+
+    .btn-cta:hover {
+      background: hsl(228 60% 97%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px hsl(0 0% 0% / 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .dashboard-preview { display: none; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Whatcha Doing?</a>
-      <ul>
-        <li><a href="index.html">Home</a></li>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">Whatcha Doing?</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="html/dashboard.html">Dashboard</a></li>
         <li><a href="html/projects.html">Projects</a></li>
         <li><a href="html/calendar.html">Calendar</a></li>
@@ -28,26 +227,135 @@
   </header>
 
   <main>
-    <section>
-      <h1>Whatcha Doing?</h1>
-      <p>Keep school, work, and life organized — your way. Customizable projects, priority tasks, and deadline tracking all in one place.</p>
-      <a href="html/dashboard.html" class="btn">Go to Dashboard</a>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hero-eyebrow">Task Management, Simplified</span>
+          <h1 class="hero-title">
+            Get everything done,<br>
+            <em>your way</em>
+          </h1>
+          <p class="hero-subtitle">
+            School assignments, work projects, personal goals &mdash; keep every task
+            in one organized, color-coded workspace that adapts to how you think.
+          </p>
+          <div class="hero-actions">
+            <a href="html/dashboard.html" class="btn btn-primary btn-hero">Open Dashboard</a>
+            <a href="html/projects.html" class="btn btn-ghost btn-hero">View Projects</a>
+          </div>
+        </div>
+
+        <!-- Preview card -->
+        <div class="dashboard-preview" aria-hidden="true">
+          <div class="preview-header">
+            <h3>Today&rsquo;s Tasks</h3>
+            <span class="preview-date">June 21, 2026</span>
+          </div>
+          <div class="preview-task">
+            <div class="preview-check done" aria-hidden="true">&#10003;</div>
+            <span class="preview-task-text done-text">Review project proposal</span>
+            <span class="priority priority-high">High</span>
+          </div>
+          <div class="preview-task">
+            <div class="preview-check" aria-hidden="true"></div>
+            <span class="preview-task-text">Finish DEV109 lab writeup</span>
+            <span class="priority priority-high">High</span>
+          </div>
+          <div class="preview-task">
+            <div class="preview-check" aria-hidden="true"></div>
+            <span class="preview-task-text">Read chapters 8&ndash;10</span>
+            <span class="priority priority-medium">Medium</span>
+          </div>
+          <div class="preview-task">
+            <div class="preview-check" aria-hidden="true"></div>
+            <span class="preview-task-text">Email team about Tuesday</span>
+            <span class="priority priority-low">Low</span>
+          </div>
+          <div class="preview-task">
+            <div class="preview-check done" aria-hidden="true">&#10003;</div>
+            <span class="preview-task-text done-text">Buy groceries</span>
+            <span class="priority priority-low">Low</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Features</h2>
-      <ul>
-        <li>Organize tasks by project with color coding</li>
-        <li>Priority levels and collapsible subtasks</li>
-        <li>Calendar view with deadlines</li>
-        <li>Custom notification preferences</li>
-        <li>Pin and link related tasks</li>
-      </ul>
+    <!-- Features -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Built for how you work</p>
+            <h2>Everything you need to stay on top</h2>
+          </div>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#9776;</div>
+            <h3>Prioritized Task Lists</h3>
+            <p>
+              Color-coded High, Medium, and Low priorities so you always know
+              what matters most right now.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#128193;</div>
+            <h3>Project Organization</h3>
+            <p>
+              Group related tasks into projects with progress tracking, due dates,
+              and custom color labels.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#128197;</div>
+            <h3>Calendar View</h3>
+            <p>
+              See all your deadlines in a monthly calendar. Click any date to
+              add or review tasks for that day.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#128204;</div>
+            <h3>Pin &amp; Link Tasks</h3>
+            <p>
+              Pin important tasks to the top of your dashboard and link
+              related tasks across different projects.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#128276;</div>
+            <h3>Smart Reminders</h3>
+            <p>
+              Set reminders by due date or at custom intervals. Never miss
+              a deadline again.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#9881;</div>
+            <h3>Fully Customizable</h3>
+            <p>
+              Adjust colors, labels, layouts, and notification preferences to
+              match exactly how your brain works.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-strip">
+      <h2>Start organizing today</h2>
+      <p>No setup required &mdash; open your dashboard and add your first task.</p>
+      <a href="html/dashboard.html" class="btn btn-cta">Go to Dashboard</a>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2026 Whatcha Doing? | DMA205 &amp; DEV109 Collaboration | Bellevue College</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Whatcha Doing?</span>
+      <p class="footer-note">&copy; 2026 Whatcha Doing? &mdash; DMA205 &amp; DEV109 Collaboration &mdash; Bellevue College</p>
+    </div>
   </footer>
 </body>
 </html>

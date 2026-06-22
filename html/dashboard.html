@@ -4,20 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Whatcha Doing? — your task dashboard with pinned items, today's priorities, and upcoming deadlines.">
-  <meta name="keywords" content="dashboard, tasks, priorities, deadlines, Whatcha Doing">
+  <meta name="description" content="Whatcha Doing? dashboard — your pinned tasks, today's priorities, and upcoming deadlines at a glance.">
+  <meta name="keywords" content="dashboard, tasks, priorities, deadlines, productivity">
   <meta name="author" content="Meron Woldekiros | DEV109 Team 2">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:title" content="Dashboard | Whatcha Doing?">
+  <meta property="og:description" content="Your task dashboard with pinned items and priority overview.">
+  <meta property="og:type" content="website">
   <title>Dashboard | Whatcha Doing?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .page-banner {
+      background: linear-gradient(135deg, hsl(228 76% 60%) 0%, hsl(245 70% 65%) 100%);
+      padding: 2.5rem 1.5rem;
+      color: hsl(0 0% 100%);
+    }
+    .page-banner-inner { max-width: 1140px; margin: 0 auto; }
+    .page-banner h1 { color: hsl(0 0% 100%); font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.3rem; }
+    .page-banner p { color: hsl(228 60% 90%); font-size: 0.9rem; margin: 0; }
+    .quick-add-form {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      transform: translateY(-24px);
+    }
+    .quick-add {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .quick-add-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--color-text);
+      background: transparent;
+    }
+    .quick-add-input::placeholder { color: var(--color-text-muted); }
+    .quick-add-select {
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--color-text);
+      background: var(--color-bg);
+      cursor: pointer;
+    }
+    .task-list { display: flex; flex-direction: column; gap: 8px; }
+    .task-divider {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      padding: 4px 0;
+      margin: 12px 0 4px;
+    }
+    .pinned-badge {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      background: hsl(42 90% 94%);
+      color: hsl(38 80% 40%);
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .sidebar-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .deadline-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.85rem;
+    }
+    .deadline-item:last-child { border-bottom: none; }
+    .deadline-date {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+    .deadline-date.soon { color: var(--color-high); font-weight: 600; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-chip {
+      background: var(--color-surface-raised);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+    .stat-chip strong { display: block; font-family: var(--font-display); font-size: 1.4rem; color: var(--color-accent); }
+    .stat-chip span { font-size: 0.72rem; color: var(--color-text-muted); }
+    @media (max-width: 900px) {
+      .dashboard-layout { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="../index.html" class="logo">Whatcha Doing?</a>
-      <ul>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-logo">Whatcha Doing?</a>
+      <ul class="nav-links">
         <li><a href="../index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="calendar.html">Calendar</a></li>
       </ul>
@@ -25,15 +140,219 @@
   </header>
 
   <main>
-    <section>
-      <h1>Dashboard</h1>
-      <p>Your pinned tasks, today's priorities, and upcoming deadlines at a glance.</p>
-      <p><em>(Prototype placeholder — dashboard content will display here)</em></p>
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <h1>Dashboard</h1>
+        <p>Saturday, June 21, 2026 &mdash; 3 high-priority tasks today</p>
+      </div>
+    </div>
+
+    <!-- Quick add -->
+    <div class="quick-add-form">
+      <form class="quick-add" action="#" method="post">
+        <label for="quick-task" class="sr-only">Add a new task</label>
+        <input
+          type="text"
+          id="quick-task"
+          class="quick-add-input"
+          placeholder="Add a task&hellip; press Enter to save"
+          aria-label="New task title"
+        >
+        <select class="quick-add-select" aria-label="Priority level">
+          <option value="high">High</option>
+          <option value="medium" selected>Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="dashboard-layout">
+
+          <!-- Main task list -->
+          <div>
+            <div class="section-header">
+              <div>
+                <p class="section-label">Today</p>
+                <h2>Your Tasks</h2>
+              </div>
+              <a href="projects.html" class="btn btn-ghost">All Projects</a>
+            </div>
+
+            <div class="task-list">
+              <p class="task-divider">&#128204; Pinned</p>
+
+              <div class="task-card">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark complete: Finish prototype for DEV109">
+                <div class="task-content">
+                  <p class="task-title">Finish prototype for DEV109 &mdash; Phase 2</p>
+                  <div class="task-meta">
+                    <span>Due today</span>
+                    <span>&#128193; School</span>
+                    <span class="pinned-badge">Pinned</span>
+                  </div>
+                </div>
+                <span class="priority priority-high">High</span>
+                <div class="task-actions">
+                  <button type="button" aria-label="Edit task">&#9998;</button>
+                  <button type="button" aria-label="More options">&#8942;</button>
+                </div>
+              </div>
+
+              <p class="task-divider">Today &mdash; High Priority</p>
+
+              <div class="task-card">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark complete: Submit reflection statement">
+                <div class="task-content">
+                  <p class="task-title">Submit reflection statement for DEV109</p>
+                  <div class="task-meta">
+                    <span>Due tonight</span>
+                    <span>&#128193; School</span>
+                  </div>
+                </div>
+                <span class="priority priority-high">High</span>
+                <div class="task-actions">
+                  <button type="button" aria-label="Edit task">&#9998;</button>
+                  <button type="button" aria-label="More options">&#8942;</button>
+                </div>
+              </div>
+
+              <div class="task-card">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark complete: Review design feedback from DMA team">
+                <div class="task-content">
+                  <p class="task-title">Review design feedback from DMA205 team</p>
+                  <div class="task-meta">
+                    <span>Due today</span>
+                    <span>&#128193; Collaboration</span>
+                  </div>
+                </div>
+                <span class="priority priority-high">High</span>
+                <div class="task-actions">
+                  <button type="button" aria-label="Edit task">&#9998;</button>
+                  <button type="button" aria-label="More options">&#8942;</button>
+                </div>
+              </div>
+
+              <p class="task-divider">Today &mdash; Medium Priority</p>
+
+              <div class="task-card">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark complete: Read chapters 8 through 10">
+                <div class="task-content">
+                  <p class="task-title">Read chapters 8&ndash;10 for Tuesday</p>
+                  <div class="task-meta">
+                    <span>Due Tuesday</span>
+                    <span>&#128193; School</span>
+                  </div>
+                </div>
+                <span class="priority priority-medium">Medium</span>
+                <div class="task-actions">
+                  <button type="button" aria-label="Edit task">&#9998;</button>
+                  <button type="button" aria-label="More options">&#8942;</button>
+                </div>
+              </div>
+
+              <div class="task-card">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark complete: Reply to team email">
+                <div class="task-content">
+                  <p class="task-title">Reply to team email about collaboration model</p>
+                  <div class="task-meta">
+                    <span>No due date</span>
+                    <span>&#128193; Collaboration</span>
+                  </div>
+                </div>
+                <span class="priority priority-medium">Medium</span>
+                <div class="task-actions">
+                  <button type="button" aria-label="Edit task">&#9998;</button>
+                  <button type="button" aria-label="More options">&#8942;</button>
+                </div>
+              </div>
+
+              <p class="task-divider">Low Priority</p>
+
+              <div class="task-card">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark complete: Organize notes">
+                <div class="task-content">
+                  <p class="task-title">Organize digital notes and reference files</p>
+                  <div class="task-meta">
+                    <span>Someday</span>
+                    <span>&#128193; Personal</span>
+                  </div>
+                </div>
+                <span class="priority priority-low">Low</span>
+                <div class="task-actions">
+                  <button type="button" aria-label="Edit task">&#9998;</button>
+                  <button type="button" aria-label="More options">&#8942;</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside aria-label="Summary sidebar">
+            <div class="sidebar-card">
+              <h3>Today at a Glance</h3>
+              <div class="stats-grid">
+                <div class="stat-chip">
+                  <strong>6</strong>
+                  <span>Total tasks</span>
+                </div>
+                <div class="stat-chip">
+                  <strong>3</strong>
+                  <span>High priority</span>
+                </div>
+                <div class="stat-chip">
+                  <strong>0</strong>
+                  <span>Completed</span>
+                </div>
+                <div class="stat-chip">
+                  <strong>2</strong>
+                  <span>Due today</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h3>Upcoming Deadlines</h3>
+              <div class="deadline-item">
+                <span>DEV109 Phase 2</span>
+                <span class="deadline-date soon">Today</span>
+              </div>
+              <div class="deadline-item">
+                <span>Reflection Statement</span>
+                <span class="deadline-date soon">Tonight</span>
+              </div>
+              <div class="deadline-item">
+                <span>Reading Ch. 8&ndash;10</span>
+                <span class="deadline-date">Jun 23</span>
+              </div>
+              <div class="deadline-item">
+                <span>Final project draft</span>
+                <span class="deadline-date">Jun 24</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h3>Active Projects</h3>
+              <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+                <a href="projects.html" style="color: var(--proj-blue); font-weight: 600;">&#9679; School (4 tasks)</a>
+                <a href="projects.html" style="color: var(--proj-green); font-weight: 600;">&#9679; Collaboration (2 tasks)</a>
+                <a href="projects.html" style="color: var(--proj-orange); font-weight: 600;">&#9679; Personal (1 task)</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2026 Whatcha Doing? | DMA205 &amp; DEV109 Collaboration | Bellevue College</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Whatcha Doing?</span>
+      <p class="footer-note">&copy; 2026 Whatcha Doing? &mdash; DMA205 &amp; DEV109 Collaboration &mdash; Bellevue College</p>
+    </div>
   </footer>
 </body>
 </html>
